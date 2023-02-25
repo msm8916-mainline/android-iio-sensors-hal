@@ -33,6 +33,7 @@
 #define QUIRK_MOUNTING_MATRIX	0x800 	/* Mounting information present				*/
 #define QUIRK_HRTIMER		0x1000	/* We may use a hrtimer if there is no other trigger	*/
 #define QUIRK_SECONDARY		0x2000	/* List after other sensors of the same type		*/
+#define QUIRK_BINARIZE		0x4000	/* Force sensor to return only two values		*/
 
 #ifdef __LP64__
 	typedef uint64_t	flag_t;
@@ -62,5 +63,6 @@ int		sensor_get_available_frequencies(int s);
 int		sensor_get_cal_steps	(int s);
 char*		sensor_get_string_type	(int s);
 int 		sensor_get_st_prop	(int s, const char* sel, char val[MAX_NAME_SIZE]);
+int		sensor_get_nearlevel	(int s);
 
 #endif

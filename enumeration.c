@@ -709,6 +709,8 @@ static int add_sensor (int dev_num, int catalog_index, int mode)
 		strcpy(sensor[s].internal_name, "(null)");
 	}
 
+	sensor[s].nearlevel = sensor_get_nearlevel(s);
+
 	switch (sensor_type) {
 		case SENSOR_TYPE_ACCELEROMETER:
 			/* Only engage accelerometer bias compensation if really needed */

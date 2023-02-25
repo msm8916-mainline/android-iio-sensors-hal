@@ -374,6 +374,13 @@ static int finalize_sample_default (int s, sensors_event_t* data)
 			/* ... fall through ... */
 
 		case SENSOR_TYPE_PROXIMITY:
+			if (sensor[s].type == SENSOR_TYPE_PROXIMITY && sensor[s].nearlevel > 0 &&
+			   (sensor[s].quirks & QUIRK_BINARIZE)) {
+				if (data->data[0] >= sensor[s].nearlevel)
+					data->data[0] = 0.0f;
+				else
+					data->data[0] = 5.0f;
+			}
 			/* These are on change sensors ; drop the sample if it has the same value as the previously reported one. */
 			if (data->data[0] == sensor[s].prev_val.data)
 				return 0;

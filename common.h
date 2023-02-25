@@ -48,6 +48,7 @@
 #define MOUNTING_MATRIX_PATH	BASE_PATH "in_mount_matrix"
 #define MOUNTING_MATRIX_PATH_2	BASE_PATH "in_accel_mount_matrix"
 #define MOUNTING_MATRIX_PATH_3	BASE_PATH "in_magn_mount_matrix"
+#define PROXIMITY_NEARLEVELPATH	BASE_PATH "in_proximity_nearlevel"
 
 #define CONFIGFS_TRIGGER_PATH	"/sys/kernel/config/iio/triggers/"
 
@@ -314,6 +315,12 @@ typedef struct
 	int needs_enable;
 
 	float semi_arbitrated_rate;	/* Arbitrated sampling rate before we considered other sensors co-located on the same iio device */
+
+	/*
+	 * Used to interpret proximity sensor value as being near or far.
+	 * This value may be available through sysfs and overriden with ro.iio.prox.<name>.nearlevel property.
+	 */
+	int nearlevel;
 }
 sensor_info_t;
 

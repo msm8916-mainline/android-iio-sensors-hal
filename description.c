@@ -449,6 +449,10 @@ uint32_t sensor_get_quirks (int s)
 		if (strstr(quirks_buf, "secondary"))
 			sensor[s].quirks |= QUIRK_SECONDARY;
 
+		if (strstr(quirks_buf, "binarize")) {
+			sensor[s].quirks |= QUIRK_BINARIZE;
+		}
+
 		sensor[s].quirks |= QUIRK_ALREADY_DECODED;
 	}
 
@@ -809,4 +813,28 @@ int32_t sensor_get_min_delay (int s)
 
 	/* Return microseconds */
 	return (int32_t) (1000000.0 / max_supported_rate);
+}
+
+int sensor_get_nearlevel(int s)
+{
+	int dev_num = sensor[s].dev_num, err, nl;
+	char nl_path[PATH_MAX];
+
+	if (sensor[s].type != SENSOR_TYPE_PROXIMITY)
+		return 0;
+
+	if (!sensor_get_prop(s, "nearlevel", &nl)) {
+		ALOGV("nearlevel prop = %d", nl);
+		return nl;
+	}
+
+	sprintf(nl_path, PROXIMITY_NEARLEVELPATH, dev_num);
+	err = sysfs_read_int(nl_path, &nl);
+	if (err < 0) {
+		ALOGE("Unable to read sysfs nearlevel");
+		return 0;
+	}
+	ALOGV("nearlevel sysfs = %d", nl);
+
+	return nl;
 }
