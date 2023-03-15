@@ -103,6 +103,16 @@ sensor_catalog_entry_t sensor_catalog[] = {
 		},
 	},
 	{
+		.tag		= "illuminance",
+		.shorthand	= "",
+		.type		= SENSOR_TYPE_INTERNAL_ILLUMINANCE,
+		.num_channels	= 1,
+		.is_virtual	= 0,
+		.channel = {
+			{ DECLARE_GENERIC_CHANNEL("illuminance0") },
+		},
+	},
+	{
 		.tag		= "incli",
 		.shorthand	= "",
 		.type		= SENSOR_TYPE_ORIENTATION,
@@ -145,6 +155,16 @@ sensor_catalog_entry_t sensor_catalog[] = {
 		.is_virtual	= 0,
 		.channel = {
 			{ DECLARE_GENERIC_CHANNEL("proximity") },
+		},
+	},
+	{
+		.tag		= "proximity",
+		.shorthand	= "prox",
+		.type		= SENSOR_TYPE_PROXIMITY,
+		.num_channels	= 1,
+		.is_virtual	= 0,
+		.channel = {
+			{ DECLARE_GENERIC_CHANNEL("proximity0") },
 		},
 	},
 	{
